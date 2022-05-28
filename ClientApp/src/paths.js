@@ -7,6 +7,7 @@ import {
 import { About } from './pages/About';
 import { Results } from './pages/Results';
 import { Login } from './pages/Login';
+import { Employers } from './pages/Employers';
 
 const Paths = () => (
     <Routes>
@@ -14,6 +15,7 @@ const Paths = () => (
       <Route path="about" element={<About />}/>
       <Route path="results" element={<Results />}/>
       <Route path="login" element={<Login />}/>
+      <Route path="employers" element={<Employers />}/>
     </Routes>
   )
 

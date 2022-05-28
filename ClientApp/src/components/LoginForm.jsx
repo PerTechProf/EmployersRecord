@@ -2,19 +2,27 @@ import React from 'react'
 
 
 export const LoginForm = () => {
+  const onSubmit = (event) => {
+    event.preventDefault();
+    const email = event.target.elements.email.value;
+    const password = event.target.elements.password.value;
+    if (!(email && password))
+      return;
+    console.log(email, password);
+  }
   return (
-    <form>
-      <div class="form-outline mb-4">
-        <label class="form-label" for="form2Example1">Email </label>
-        <input type="email" id="form2Example1" class="form-control" />
+    <form onSubmit={onSubmit}>
+      <div className="form-outline mb-4">
+        <label className="form-label" htmlFor="form2Example1">Email </label>
+        <input type="email" id="form2Example1" className="form-control" name="email" />
       </div>
 
-      <div class="form-outline mb-4">
-        <label class="form-label" for="form2Example2">Пароль</label>
-        <input type="password" id="form2Example2" class="form-control" />
+      <div className="form-outline mb-4">
+        <label className="form-label" htmlFor="form2Example2">Пароль</label>
+        <input type="password" id="form2Example2" className="form-control" name="password" />
       </div>
 
-      <button type="button" class="btn btn-primary btn-block mb-4">Войти</button>
+      <button type="submit" className="btn btn-primary btn-block mb-4">Войти</button>
 
     </form>
   )
