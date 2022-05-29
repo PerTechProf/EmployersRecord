@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EmployersRecord.Services.Interfaces;
 
-namespace EmployersRecord.Services
+namespace EmployersRecord.Services.Interfaces
 {
-    public class TestService : ITestService
+    public interface IAuthService
     {
         
     }
