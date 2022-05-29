@@ -13,9 +13,10 @@ export const authSlice = createSlice({
   }
 });
 
-export const { setToken } = counterSlice.actions;
+export const { setToken } = authSlice.actions;
 
-export const authorizeAsync = async (email, password) => (dispatch) => {
+// async dispatch thunk
+export const authorizeAsync = (email, password) => async (dispatch) => {
     dispatch(setToken(await login(email, password)));
 }
 

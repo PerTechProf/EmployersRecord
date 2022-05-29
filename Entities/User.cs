@@ -7,12 +7,12 @@ namespace EmployersRecord.Entities
   {
     public User()
     {
-      hireDate = DateTimeOffset.UtcNow;
-      fireDate = null;
+      HireDate = DateTimeOffset.UtcNow;
+      FireDate = null;
     }
 
-    public DateTimeOffset hireDate { get; set; }
-    public DateTimeOffset? fireDate { get; set; }
+    public DateTimeOffset HireDate { get; set; }
+    public DateTimeOffset? FireDate { get; set; }
     public string Name { get; set; }
     public string Position { get; set; }
     public bool IsEditor { get; set; }

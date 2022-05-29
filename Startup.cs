@@ -108,7 +108,7 @@ namespace EmployersRecord
             {
                 app.UseDeveloperExceptionPage();
                 app.UseCors(
-                    x => x.WithOrigins("http://localhost:3000") // путь к нашему SPA клиенту
+                    x => x.WithOrigins("http://localhost:5001") // путь к нашему SPA клиенту
                             .AllowCredentials()
                             .AllowAnyMethod()
                             .AllowAnyHeader());

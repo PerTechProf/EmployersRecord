@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
-import {Form,InputGroup,Button,Col} from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Form, InputGroup, Button, Col } from 'react-bootstrap'
 
-export const AddEmployerForm = ({id, name, position, email, number, hireDate, fireDate}) => {
+export const AddEmployerForm = ({ id = null, name, position, email, password, phoneNumber, hireDate, fireDate, isEditing = false }) => {
   const [validated, setValidated] = useState(false);
 
   const handleSubmit = (event) => {
@@ -52,27 +52,41 @@ export const AddEmployerForm = ({id, name, position, email, number, hireDate, fi
         </Form.Group>
       </Form.Row>
       <Form.Row>
+        <Form.Group as={Col} md="3" controlId="validationCustom05">
+          <Form.Label>Пароль</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="password"
+            value={password}
+            required
+          />
+        </Form.Group>
+      </Form.Row>
+      <Form.Row>
         <Form.Group as={Col} md="6" controlId="validationCustom03">
           <Form.Label>Номер телефона</Form.Label>
-          <Form.Control 
-          type="text" 
-          required
-          value={number} />
+          <Form.Control
+            type="text"
+            required
+            value={phoneNumber} 
+          />
         </Form.Group>
         <Form.Group as={Col} md="3" controlId="validationCustom04">
           <Form.Label>Дата устройства</Form.Label>
-          <Form.Control 
-          type="text" 
-          required
-          value={hireDate} />
+          <Form.Control
+            type="text"
+            required
+            value={hireDate}
+          />
         </Form.Group>
         <Form.Group as={Col} md="3" controlId="validationCustom05">
           <Form.Label>Дата увольнения</Form.Label>
-          <Form.Control 
-          type="text" 
-          placeholder="Дата увольнения"
-          value={fireDate} 
-          required />
+          <Form.Control
+            type="text"
+            placeholder="Дата увольнения"
+            value={fireDate}
+            required
+          />
         </Form.Group>
       </Form.Row>
       <Button className='float-right' type="submit">Добавить сотрудника</Button>
