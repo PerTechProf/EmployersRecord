@@ -8,9 +8,10 @@ namespace EmployersRecord.Entities
     public class Application
     {
         public int UserId { get; set; }
+        public User User { get; set; }
         public int Id { get; set; }
         public string Type { get; set; }
         public DateTimeOffset Date { get; set; }
-        public string Status { get; set; }
+        public StatusType Status { get; set; }
     }
 }

@@ -13,24 +13,27 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using EmployersRecord.Services;
 using EmployersRecord.Services.Interfaces;
+using EmployersRecord.Entities;
+using EmployersRecord.Interfaces;
 
 namespace EmployersRecord
 {
     public class Startup
     {
         private readonly IWebHostEnvironment _env;
+        private readonly IConfiguration _configuration;
 
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            _configuration = configuration;
             _env = env;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            IAppSettings appSettings = new AppSettings(_configuration);
+
             if (_env.IsDevelopment())
             {
                 services.AddCors();
@@ -45,25 +48,24 @@ namespace EmployersRecord
                 configuration.RootPath = "ClientApp/build";
             });
 
-            // services.AddDbContext<MpSkladContext>(
-            //     contextOptions =>
-            //         contextOptions.UseLazyLoadingProxies()
-            //                         .UseSqlServer(
-            //                         appSettings.DbConnectionString,
-            //                         sqlOptions => sqlOptions.CommandTimeout(60)
-            //                                                 .EnableRetryOnFailure(3)
-            //                                                 .UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery))
-            // );
+            services.AddDbContext<CompanyDbContext>(
+                contextOptions =>
+                    contextOptions
+                        .UseSqlServer(
+                        appSettings.DbConnectionString)
+            );
+            services.AddScoped<CompanyDbContext>();
 
-            // services.AddIdentity<User, IdentityRole>(
-            //             options =>
-            //             {
-            //             options.Password.RequireDigit = false;
-            //             options.Password.RequireLowercase = false;
-            //             options.Password.RequireUppercase = false;
-            //             options.Password.RequireNonAlphanumeric = false;
-            //             })
-            //         .AddEntityFrameworkStores<MpSkladContext>();
+            services.AddIdentity<User, IdentityRole<int>>(
+                        options =>
+                        {
+                            options.Password.RequireDigit = false;
+                            options.Password.RequireLowercase = false;
+                            options.Password.RequireUppercase = false;
+                            options.Password.RequireNonAlphanumeric = false;
+                        })
+                    .AddEntityFrameworkStores<CompanyDbContext>()
+                    .AddDefaultTokenProviders();
 
             services.AddAuthentication(
                 options =>
