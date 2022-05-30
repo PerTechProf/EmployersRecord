@@ -10,8 +10,8 @@ namespace EmployersRecord.Entities
             : base(options)
         {
         }
-        public DbSet<Application> Applications { get; }
-        public DbSet<Report> Reports { get; }
+        public DbSet<Application> Applications { get; set; }
+        public DbSet<Report> Reports { get; set; }
 
         // protected override void OnModelCreating(ModelBuilder builder)
         // {
