@@ -3,9 +3,8 @@ import { Table, Button } from "react-bootstrap";
 
 export const ApplicationsList = ({applications}) => {
   return (
-    <
 // @ts-ignore
-    Table striped bordered hover size="sm">
+    <Table striped bordered hover size="sm">
       <thead>
         <tr>
           <th>#</th>
