@@ -22,8 +22,8 @@ export const post =
 export const get =
   (url, body) => request(url, null, body, 'GET');
 
-export const getApplications = async () =>
-  await get("api/Applications/GetApplications")
+export const getApplications = () =>
+  get("api/Applications/GetApplications")
 
 export default {
   get,
