@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Form, InputGroup, Button, Col } from 'react-bootstrap'
 
-export const AddEmployerForm = ({ id = null, name, position, email, password, phoneNumber, hireDate, fireDate, isEditing = false }) => {
+export const AddEmployerForm = ({ id = null, name = "", position = "", email = "", password = "", phoneNumber = "", hireDate = new Date().toISOString(), isEditing = false }) => {
   const [validated, setValidated] = useState(false);
 
   const handleSubmit = (event) => {
@@ -21,7 +21,7 @@ export const AddEmployerForm = ({ id = null, name, position, email, password, ph
           <Form.Control
             required
             type="text"
-            value={name}
+            defaultValue={name}
           />
         </Form.Group>
         <Form.Group as={Col} md="4" controlId="validationCustom02">
@@ -29,7 +29,7 @@ export const AddEmployerForm = ({ id = null, name, position, email, password, ph
           <Form.Control
             required
             type="text"
-            value={position}
+            defaultValue={position}
           />
         </Form.Group>
         <Form.Group as={Col} md="4" controlId="validationCustomUsername">
@@ -41,7 +41,7 @@ export const AddEmployerForm = ({ id = null, name, position, email, password, ph
             <Form.Control
               type="email"
               placeholder="Логин"
-              value={email}
+              defaultValue={email}
               aria-describedby="inputGroupPrepend"
               required
             />
@@ -57,7 +57,7 @@ export const AddEmployerForm = ({ id = null, name, position, email, password, ph
           <Form.Control
             type="password"
             placeholder="password"
-            value={password}
+            defaultValue={password}
             required
           />
         </Form.Group>
@@ -68,7 +68,7 @@ export const AddEmployerForm = ({ id = null, name, position, email, password, ph
           <Form.Control
             type="text"
             required
-            value={phoneNumber} 
+            defaultValue={phoneNumber} 
           />
         </Form.Group>
         <Form.Group as={Col} md="3" controlId="validationCustom04">
@@ -76,16 +76,7 @@ export const AddEmployerForm = ({ id = null, name, position, email, password, ph
           <Form.Control
             type="text"
             required
-            value={hireDate}
-          />
-        </Form.Group>
-        <Form.Group as={Col} md="3" controlId="validationCustom05">
-          <Form.Label>Дата увольнения</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Дата увольнения"
-            value={fireDate}
-            required
+            defaultValue={hireDate}
           />
         </Form.Group>
       </Form.Row>

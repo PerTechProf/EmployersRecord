@@ -3,7 +3,9 @@ import { Table, Button } from "react-bootstrap";
 
 export const EmployersList = ({employers}) => {
   return (
-    <Table striped bordered hover size="sm">
+    <
+// @ts-ignore
+    Table striped bordered hover size="sm">
       <thead>
         <tr>
           <th>#</th>

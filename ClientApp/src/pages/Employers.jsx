@@ -23,7 +23,7 @@ export const Employers = () => {
     }
   ];
   return <div style={{ width: "90%", margin: "0 auto", marginTop: "2%" }}>
-    <AddEmployerForm />
+    <AddEmployerForm/>
     <Container className='mt-5'><EmployersList employers={employers} /></Container>
   </div>
 }
