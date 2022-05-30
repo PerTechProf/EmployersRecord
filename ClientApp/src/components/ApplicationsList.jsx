@@ -23,8 +23,10 @@ export const ApplicationsList = ({applications}) => {
                   <td>{application.type}</td>
                   <td>{application.status}</td>
                   <td>{application.date}</td>
-                  <td><Button variant="outline-success">Принять</Button></td>
-                  <td><Button variant="outline-danger">Отклонить</Button></td>
+                  <td>
+                    <Button variant="outline-success">Принять</Button>
+                    <Button className="ml-3" variant="outline-danger">Отклонить</Button>
+                  </td>
                 </tr>
           )}
 
