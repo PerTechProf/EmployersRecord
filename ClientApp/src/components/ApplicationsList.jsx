@@ -1,5 +1,6 @@
 import React from "react";
 import { Table, Button } from "react-bootstrap";
+import { applicationTypes, statusTypes } from "../logic/mappers";
 
 export const ApplicationsList = ({applications}) => {
   return (
@@ -19,8 +20,8 @@ export const ApplicationsList = ({applications}) => {
                 <tr key={application.id}>
                   <td>{application.id}</td>
                   <td>{application.name}</td>
-                  <td>{application.type}</td>
-                  <td>{application.status}</td>
+                  <td>{applicationTypes[application.type]}</td>
+                  <td>{statusTypes[application.status]}</td>
                   <td>{application.date}</td>
                   <td>
                     <Button variant="outline-success">Принять</Button>

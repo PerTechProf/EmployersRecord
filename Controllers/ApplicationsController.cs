@@ -27,5 +27,10 @@ namespace EmployersRecord.Controllers
             return _applications.GetApplications(new User(){IsEditor = true, Id = 6});
         }
 
+        [HttpPost]
+        public void PostApplication() {
+            
+        }
+
     }
 }

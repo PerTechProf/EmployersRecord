@@ -10,7 +10,6 @@ export const Applications = () => {
 
   const loadApplications = 
     async () => setApplications(await api.getApplications()); 
-  
   useEffect(() => {
     loadApplications();
   }, []);

@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {Form,InputGroup,Button,Col,FormControl} from 'react-bootstrap'
+import { applicationTypes } from '../logic/mappers';
 
 export const CreateApplicationForm = ({id = null, name = "", type = ""}) => {
   const [validated, setValidated] = useState(false);
@@ -25,10 +26,11 @@ export const CreateApplicationForm = ({id = null, name = "", type = ""}) => {
         </Form.Group>
         <Form.Group as={Col} md="4">
           <Form.Label>Тип заявки</Form.Label>
-          <Form.Control
-            required
-            type="text"
-          />
+          <Form.Control as="select">
+            {applicationTypes.map(
+              (type, index) => <option key={index} value={index}>{type}</option>
+            )}
+          </Form.Control>
         </Form.Group>
       </Form.Row>
       <Form.Row>
