@@ -10,7 +10,6 @@ namespace EmployersRecord.Models
     {
         public string Name { get; set; }
         public string Content { get; set; }
-        public string Type { get; set; }
-
+        public ApplicationType Type { get; set; }
     }
 }

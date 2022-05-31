@@ -12,7 +12,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using EmployersRecord.Services;
-using EmployersRecord.Services.Interfaces;
 using EmployersRecord.Entities;
 using EmployersRecord.Interfaces;
 
@@ -100,6 +99,7 @@ namespace EmployersRecord
             
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IApplicationsService, ApplicationsService>();
+            services.AddScoped<IHttpUserService, HttpUserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

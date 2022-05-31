@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using EmployersRecord.Services.Interfaces;
 using EmployersRecord.Models;
+using EmployersRecord.Interfaces;
 
 namespace EmployersRecord.Controllers
 {
