@@ -1,25 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { login } from "../logic";
+import { getCookies } from "../logic";
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    token: ''
+    token: (console.log(getCookies().MpskladAuthToken),''),
+    isEditor: false
   },
   reducers: {
     setToken: (state, action) => {
       state.token = action.payload;
+    },
+    setAsEditor: (state, action) => {
+      state.isEditor = action.payload;
     }
   }
 });
 
-export const { setToken } = authSlice.actions;
-
-// async dispatch thunk
-export const authorizeAsync = (email, password) => async (dispatch) => {
-    dispatch(setToken(await login(email, password)));
-}
+export const { setToken, setAsEditor } = authSlice.actions;
 
 export const selectToken = (state) => state.auth.token;
+export const selectIsEditor = (state) => state.auth.isEditor;
 
 export default authSlice.reducer;

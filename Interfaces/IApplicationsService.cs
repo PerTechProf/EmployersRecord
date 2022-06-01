@@ -9,7 +9,7 @@ namespace EmployersRecord.Interfaces
 {
     public interface IApplicationsService
     {
-        List<Application> GetApplications();
+        IEnumerable<Application> GetApplications();
 
         void PostApplication(PostApplicationModel application);
     }

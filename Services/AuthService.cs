@@ -31,27 +31,22 @@ namespace EmployersRecord.Services
             _logger = logger;
             _userService = userService;
         }
-        public string CurrentUserId =>
-            CurrentUserIdOrNull ?? throw new InvalidOperationException("The current user is not set");
+        public User GetCurrentUser() =>
+            _db.Users.First(user => user.UserName == CurrentUserName);
+        
+        public int CurrentUserId =>
+            GetCurrentUser().Id;
+        
+        private string CurrentUserName =>
+            CurrentUserNameOrNull ?? throw new InvalidOperationException("The current user is not set");
 
-        public string CurrentUserIdOrNull => ImpersonatedUserId ?? _userService.CurrentHttpUserId;
+        public string CurrentUserNameOrNull => _userService.CurrentHttpUserName;
 
-        public bool IsAuthorized => CurrentUserIdOrNull != null;
+        public bool IsAuthorized => CurrentUserNameOrNull != null;
 
-        public string ImpersonatedUserId { get; private set; }
-
-        private bool IsImpersonating => ImpersonatedUserId != null;
-
-        public bool IsEditor() => IsImpersonating || IsCurrentUserEditor();
+        public bool IsEditor() => IsCurrentUserEditor();
 
         private bool IsCurrentUserEditor() => GetCurrentUser().IsEditor;
-
-        public User GetCurrentUser()
-        {
-            // NOTE: GetUserAsync on UserManager is not working, because UserId claim has a custom name
-            // instead of the default one like ClaimsIdentity.DefaultNameClaimType
-            return _db.Users.First(_ => _.Id.ToString() == CurrentUserId);
-        }
 
         public void EnsureIsEditor()
         {
@@ -59,31 +54,6 @@ namespace EmployersRecord.Services
             {
                 throw new NotImplementedException("No method");
             }
-        }
-
-        public async Task Impersonate(string userId)
-        {
-            if (userId == null)
-            {
-                throw new ArgumentNullException(nameof(userId));
-            }
-
-            EnsureIsEditor();
-
-            if (userId == ImpersonatedUserId || userId == CurrentUserId)
-            {
-                return;
-            }
-
-            var targetUser = await _db.Users.FirstOrDefaultAsync(_ => _.Id.ToString() == userId);
-
-            if (targetUser == null)
-            {
-                ImpersonatedUserId = null;
-                throw new ArgumentException($"Failed to find the target User #{userId}");
-            }
-
-            ImpersonatedUserId = userId;
         }
 
         public async Task<string> CreateToken(string email, string password)
@@ -118,6 +88,8 @@ namespace EmployersRecord.Services
 
         public async Task Register(RegistrationModel model)
         {
+            // EnsureIsEditor();
+
             var user = new User
             {
                 Email = model.Email,
@@ -137,8 +109,8 @@ namespace EmployersRecord.Services
                 "Не удалось создать пользователя.\n" + String.Join('\n', result.Errors.Select(_ => _.Description)));
             }
 
-            await _userManager.AddClaimAsync(user, new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName));
-            await _userManager.AddClaimAsync(user, new Claim("UserId", user.Id.ToString()));
+            await _userManager.AddClaimAsync(user, new Claim("Email", user.Email));
+            // await _userManager.AddClaimAsync(user, new Claim("UserId", user.Id.ToString()));
         }
     }
 }

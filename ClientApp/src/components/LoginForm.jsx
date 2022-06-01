@@ -1,15 +1,17 @@
 import React from 'react'
+import { login } from '../logic/api';
 
 
 export const LoginForm = () => {
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
     const email = event.target.elements.email.value;
     const password = event.target.elements.password.value;
     if (!(email && password))
       return;
-    console.log(email, password);
+    login(email, password);
   }
+
   return (
     <form onSubmit={onSubmit}>
       <div className="form-outline mb-4">

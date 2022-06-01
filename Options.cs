@@ -5,7 +5,7 @@ namespace EmployersRecord
 {
     public class Options
     {
-        public const string CookieName = "MpskladAuthToken";
+        public const string CookieName = "AuthToken";
 
         public static SymmetricSecurityKey GetSigningKey() =>
         new SymmetricSecurityKey(

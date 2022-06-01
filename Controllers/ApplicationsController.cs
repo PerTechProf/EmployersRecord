@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using EmployersRecord.Entities;
 using EmployersRecord.Interfaces;
 using EmployersRecord.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -13,6 +14,7 @@ namespace EmployersRecord.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
+    [Authorize]
     public class ApplicationsController : Controller
     {
         private readonly ILogger<ApplicationsController> _logger;
@@ -28,7 +30,7 @@ namespace EmployersRecord.Controllers
         }
 
         [HttpGet]
-        public List<Application> GetApplications() {
+        public IEnumerable<Application> GetApplications() {
             return _applications.GetApplications();
         }
 

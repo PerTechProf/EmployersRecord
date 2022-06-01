@@ -9,14 +9,11 @@ namespace EmployersRecord.Interfaces
 {
     public interface IAuthService
     {
-        string CurrentUserId { get; }
-        string CurrentUserIdOrNull { get; }
-        bool IsAuthorized { get; }
-        string ImpersonatedUserId { get; }
-        bool IsEditor();
+        int CurrentUserId { get; }
         User GetCurrentUser();
+        bool IsAuthorized { get; }
+        bool IsEditor();
         void EnsureIsEditor();
-        Task Impersonate(string userId);
         Task<string> CreateToken(string email, string password);
         Task Register(RegistrationModel model);
     }

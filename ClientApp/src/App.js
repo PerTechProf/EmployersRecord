@@ -6,15 +6,11 @@ import Paths from './paths';
 import { NavBar } from './components/NavBar';
 import './custom.css'
 
-export default class App extends Component {
-  static displayName = App.name;
-
-  render() {
-    return (
-      <Router>
-        <NavBar />
-        <Paths />
-      </Router>
-    );
-  }
+export default function App() {
+  return (
+    <Router>
+      <NavBar />
+      <Paths />
+    </Router>
+  );
 }

@@ -19,9 +19,12 @@ namespace EmployersRecord.Services
             _auth = authService;
         }
 
-        public List<Application> GetApplications() {
+        public IEnumerable<Application> GetApplications() {
             var user = _auth.GetCurrentUser();
-            return _db.Applications.Where((application) => user.IsEditor || application.UserId == user.Id).ToList();
+            var applications = _db.Applications;
+            if (user.IsEditor)
+                return applications;
+            return _db.Applications.Where((application) => application.UserId == user.Id);
         }
 
         public void PostApplication(PostApplicationModel application) {

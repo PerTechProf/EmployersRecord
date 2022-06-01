@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using EmployersRecord.Models;
 using EmployersRecord.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace EmployersRecord.Controllers
 {
@@ -23,16 +25,35 @@ namespace EmployersRecord.Controllers
     }
 
     [HttpPost]
-    public async Task CreateEmployer([FromBody] RegistrationModel model)
+    public async Task CreateEmployer(RegistrationModel model)
     {
       model.Id = null;
       await _auth.Register(model);
     }
 
+    [HttpPost]
+    public async Task<TokenModel> Login(LoginModel model) {
+      var token = await _auth.CreateToken(model.Email, model.Password);
+      
+      SetAuthCookie(token);
+
+      return new TokenModel(token);
+    }
+    
+    [HttpPost]
+    public StatusCodeResult LogOut()
+    {
+      Response.Cookies.Delete(Options.CookieName);
+      return Ok();
+    }
+
+    private void SetAuthCookie(string token) =>
+      // TODO: Use some boilerplate instead of all this?
+      Response.Cookies.Append(
+        Options.CookieName, token, new CookieOptions { MaxAge = TimeSpan.FromDays(30) });
+
     // [HttpPut]
     // public async Task EditEmployer([FromBody] RegistrationModel model) =>
     //     await _auth.Register(model);
-
-    
   }
 }

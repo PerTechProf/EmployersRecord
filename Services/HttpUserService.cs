@@ -14,9 +14,9 @@ namespace EmployersRecord.Services
       _httpContextAccessor = httpContextAccessor;
     }
 
-    public string CurrentHttpUserId =>
+    public string CurrentHttpUserName =>
       _httpContextAccessor.HttpContext?.User.Identity is ClaimsIdentity {IsAuthenticated: true} identity
-        ? identity.Claims.FirstOrDefault(_ => _.Type == "UserId")?.Value
+        ? identity.Claims.FirstOrDefault(_ => _.Type == "Email")?.Value
         : null;
   }
 }

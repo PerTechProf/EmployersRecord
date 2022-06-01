@@ -4,6 +4,6 @@ namespace EmployersRecord.Interfaces
 {
   public interface IHttpUserService
   {
-    string CurrentHttpUserId { get; }
+    string CurrentHttpUserName { get; }
   }
 }
