@@ -20,15 +20,17 @@ namespace EmployersRecord.Services
         }
 
         public IEnumerable<Application> GetApplications() {
-            var user = _auth.GetCurrentUser();
+           // var user = _auth.GetCurrentUser();
             var applications = _db.Applications;
+            var user = new User(){IsEditor = false, Id = 2};
             if (user.IsEditor)
                 return applications;
             return _db.Applications.Where((application) => application.UserId == user.Id);
         }
 
         public void PostApplication(PostApplicationModel application) {
-            var user = _auth.GetCurrentUser();
+           // var user = _auth.GetCurrentUser();
+            var user = new User(){IsEditor = false, Id = 2};
             _db.Applications.Add(new Application(){
                 Name = application.Name,
                 Content = application.Content,

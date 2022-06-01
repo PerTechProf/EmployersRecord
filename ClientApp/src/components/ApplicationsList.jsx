@@ -10,6 +10,7 @@ export const ApplicationsList = ({applications}) => {
         <tr>
           <th>#</th>
           <th>Имя</th>
+          <th>Имя сотрудника</th>
           <th>Тип заявки</th>
           <th>Статус заявки</th>
           <th>Дата создания заявки</th>
@@ -20,6 +21,7 @@ export const ApplicationsList = ({applications}) => {
                 <tr key={application.id}>
                   <td>{application.id}</td>
                   <td>{application.name}</td>
+                  <td>{application.employer.name}</td>
                   <td>{applicationTypes[application.type]}</td>
                   <td>{statusTypes[application.status]}</td>
                   <td>{application.date}</td>

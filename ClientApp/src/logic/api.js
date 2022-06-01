@@ -2,7 +2,7 @@ import { store } from "../store";
 import { selectToken, setToken } from "../store/authReducer";
 
 const request =
-  async (url, postBody, getArgs, method) => {
+  async (controller, apiMethod, postBody, getArgs, method) => {
     const headers = {
       'Content-Type': 'application/json',
     };
@@ -11,7 +11,7 @@ const request =
     if (token)
       headers['Authorization'] = `Bearer ${token}`;
 
-    return await (await fetch(url 
+    return await (await fetch("api/" + controller + "/" + apiMethod 
         + (getArgs ? `?${Object.entries(getArgs)
           .map(arg => arg[0]+'='+arg[1]).join('&')}`
         : ''),
@@ -40,6 +40,9 @@ export const login = async (email, password) =>
       ).token
     )
   );
+
+export const createEmployer = () =>
+  post("api/")
 
 export default {
   get,

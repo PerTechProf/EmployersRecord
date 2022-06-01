@@ -2,7 +2,7 @@ import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { UserInfoForm } from "../components/UserInfoForm";
 
-export const MyInfo =() => {
+export const UserInfo =() => {
   return (
     <Container className="mt-5">
       <Row>

@@ -10,6 +10,7 @@ export const EmployersList = ({employers}) => {
         <tr>
           <th>#</th>
           <th>Имя</th>
+          <th>Почта</th>
           <th>Должность</th>
           <th>Номер телефона</th>
           <th>Дата устройства</th>
@@ -18,13 +19,14 @@ export const EmployersList = ({employers}) => {
       </thead>
       <tbody>
         {employers.map((employer) =>
-                <tr key={employer.Id}>
-                  <td>{employer.Id}</td>
-                  <td>{employer.Name}</td>
-                  <td>{employer.Position}</td>
-                  <td>{employer.Number}</td>
-                  <td>{employer.HireDate}</td>
-                  <td>{employer.FireDate}</td>
+                <tr key={employer.id}>
+                  <td>{employer.id}</td>
+                  <td>{employer.name}</td>
+                  <td>{employer.email}</td>
+                  <td>{employer.position}</td>
+                  <td>{employer.phoneNumber}</td>
+                  <td>{employer.hireDate}</td>
+                  <td>{employer.fireDate}</td>
                   <td><Button variant="outline-primary">Изменить</Button></td>
                 </tr>
           )}

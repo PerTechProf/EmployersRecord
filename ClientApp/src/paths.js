@@ -5,11 +5,10 @@ import {
   Route
 } from "react-router-dom";
 import { About } from './pages/About';
-import { Results } from './pages/Results';
 import { Login } from './pages/Login';
 import { Employers } from './pages/Employers';
 import { Applications } from './pages/Applications';
-import { MyInfo } from './pages/MyInfo';
+import { UserInfo } from './pages/UserInfo';
 import { useToken, useIsEditor } from './logic/hooks';
 
 const Paths = () => {
@@ -23,7 +22,7 @@ const Paths = () => {
       {token ? <>
         <Route path="employers" element={<Employers />}/>,
         <Route path="applications" element={<Applications />}/>,
-        <Route path="account-info" element={<MyInfo />}/>,
+        <Route path="account-info" element={<UserInfo />}/>,
         isEditor && ([
           
         ])

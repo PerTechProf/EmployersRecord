@@ -3,6 +3,12 @@ import { Form, InputGroup, Button, Col } from 'react-bootstrap'
 
 export const AddEmployerForm = ({ id = null, name = "", position = "", email = "", password = "", phoneNumber = "", hireDate = new Date().toISOString(), isEditing = false }) => {
   const [validated, setValidated] = useState(false);
+  const nameInput = useRef(name);
+  const positionInput = useRef(position);
+  const emailInput = useRef(email);
+  const passwordInput = useRef(password);
+  const phoneNumberInput = useRef(phoneNumber);
+  const hireDateInput = useRef(hireDate);
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -19,17 +25,17 @@ export const AddEmployerForm = ({ id = null, name = "", position = "", email = "
         <Form.Group as={Col} md="4" controlId="validationCustom01">
           <Form.Label>Имя</Form.Label>
           <Form.Control
+            ref={nameInput}
             required
             type="text"
-            defaultValue={name}
           />
         </Form.Group>
         <Form.Group as={Col} md="4" controlId="validationCustom02">
           <Form.Label>Должность</Form.Label>
           <Form.Control
+            ref={positionInput}
             required
             type="text"
-            defaultValue={position}
           />
         </Form.Group>
         <Form.Group as={Col} md="4" controlId="validationCustomUsername">
@@ -39,9 +45,9 @@ export const AddEmployerForm = ({ id = null, name = "", position = "", email = "
               <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
             </InputGroup.Prepend>
             <Form.Control
+              ref={emailInput}
               type="email"
-              placeholder="Логин"
-              defaultValue={email}
+              placeholder="Email"
               aria-describedby="inputGroupPrepend"
               required
             />
@@ -55,9 +61,9 @@ export const AddEmployerForm = ({ id = null, name = "", position = "", email = "
         <Form.Group as={Col} md="3" controlId="validationCustom05">
           <Form.Label>Пароль</Form.Label>
           <Form.Control
+            ref={passwordInput}
             type="password"
             placeholder="password"
-            defaultValue={password}
             required
           />
         </Form.Group>
@@ -66,17 +72,17 @@ export const AddEmployerForm = ({ id = null, name = "", position = "", email = "
         <Form.Group as={Col} md="6" controlId="validationCustom03">
           <Form.Label>Номер телефона</Form.Label>
           <Form.Control
+            ref={phoneNumberInput}
             type="text"
             required
-            defaultValue={phoneNumber} 
           />
         </Form.Group>
         <Form.Group as={Col} md="3" controlId="validationCustom04">
           <Form.Label>Дата устройства</Form.Label>
           <Form.Control
+            ref={hireDateInput}
             type="text"
             required
-            defaultValue={hireDate}
           />
         </Form.Group>
       </Form.Row>
