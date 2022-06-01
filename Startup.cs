@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using EmployersRecord.Services;
 using EmployersRecord.Entities;
 using EmployersRecord.Interfaces;
+using System.Security.Claims;
 
 namespace EmployersRecord
 {
@@ -40,6 +41,7 @@ namespace EmployersRecord
             }
 
             services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -143,7 +145,8 @@ namespace EmployersRecord
                     }
                     else
                     {
-                        if (context.Request.Query.TryGetValue(authKey, out var queryTokens) && queryTokens.Count == 1
+                        if (context.Request.Query.TryGetValue(authKey, out var queryTokens) 
+                            && queryTokens.Count == 1
                             && queryTokens[0] != null)
                         {
                             context.Request.Headers.Add(authKey, $"Bearer {queryTokens[0]}");
@@ -155,6 +158,9 @@ namespace EmployersRecord
             });
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
