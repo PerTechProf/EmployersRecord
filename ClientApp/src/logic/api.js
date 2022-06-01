@@ -24,13 +24,16 @@ const request =
 }
 
 export const post = 
-  (url, body) => request(url, body, null, 'POST');
+  (conroller, method, body) => request(conroller, method, body, null, 'POST');
 
 export const get =
-  (url, body) => request(url, null, body, 'GET');
+  (controller, method, body) => request(controller, method, null, body, 'GET');
 
-export const getApplications = () =>
-  get("api/Applications/GetApplications")
+export const applications = {
+  controller: "Applications",
+  getApplications: () =>
+    get(this.controller,"GetApplications")
+}
 
 export const login = async (email, password) =>
   store.dispatch(
@@ -41,11 +44,23 @@ export const login = async (email, password) =>
     )
   );
 
-export const createEmployer = () =>
-  post("api/")
+export const auth = {
+  controller: "Auth",
+  createEmployer: (name = "", position = "", email = "", password = "", phoneNumber = "", hireDate = new Date().toISOString(), id = null) =>
+    post(this.conroller, "CreateEmployer", {
+      name,
+      position,
+      email,
+      password,
+      phoneNumber,
+      hireDate,
+      id
+    }),
+}
 
 export default {
   get,
   post,
-  getApplications
+  auth,
+  applications
 }
