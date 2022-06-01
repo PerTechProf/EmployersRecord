@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Form, InputGroup, Button, Col } from 'react-bootstrap'
+import { auth } from "../logic/api";
 
 export const AddEmployerForm = ({ id = null, name = "", position = "", email = "", password = "", phoneNumber = "", hireDate = new Date().toISOString(), isEditing = false }) => {
   const [validated, setValidated] = useState(false);
@@ -17,6 +18,14 @@ export const AddEmployerForm = ({ id = null, name = "", position = "", email = "
       event.stopPropagation();
     }
     setValidated(true);
+    auth.createEmployer(
+      nameInput.current.value,
+      positionInput.current.val,
+      emailInput.value,
+      passwordInput.value,
+      phoneNumberInput.value,
+      hireDateInput.value
+    );
   };
 
   return (
