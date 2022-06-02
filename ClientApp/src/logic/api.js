@@ -1,6 +1,10 @@
 import { store } from "../store";
 import { selectToken, setToken } from "../store/authReducer";
 
+const authController = "Auth";
+const applicationsController = "Applications";
+const reportsController = "Reports";
+
 const request =
   async (controller, apiMethod, postBody, getArgs, method) => {
     const headers = {
@@ -30,17 +34,15 @@ export const get =
   (controller, method, body) => request(controller, method, null, body, 'GET');
 
 export const applications = {
-  controller: "Applications",
   getApplications: () =>
-    get(this.controller,"GetApplications")
+    get(applicationsController,"GetApplications")
 }
 
 export const auth = {
-  controller: "Auth",
   login: async function(email, password) {
     store.dispatch(
       setToken(
-        (await post(this.controller, "Login", 
+        (await post(authController, "Login", 
           {email, password})
         ).token
       )
@@ -49,7 +51,7 @@ export const auth = {
   createEmployer: function(name, position, email, password, 
     phoneNumber, hireDate = new Date().toISOString(), id = null
   ) {
-      return post(this.controller, "CreateEmployer", {
+      return post(authController, "CreateEmployer", {
         name,
         position,
         email,
