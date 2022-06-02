@@ -9,7 +9,7 @@ export const Applications = () => {
   const api = useApi();
 
   const loadApplications = 
-    async () => setApplications(await api.getApplications()); 
+    async () => setApplications(await api.applications.getApplications()); 
   useEffect(() => {
     loadApplications();
   }, []);

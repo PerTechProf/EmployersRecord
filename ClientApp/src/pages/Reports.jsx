@@ -4,13 +4,14 @@ import { ReportsList } from '../components/ReportsList';
 import { useApi } from '../logic/hooks';
 
 export const Reports = () => {
-  const [reports, setApplications] = useState([]);
+  const [reports, setReports] = useState([]);
   const api = useApi();
 
-  const loadApplications = 
-    async () => setApplications(await api.getApplications()); 
+  const loadReports = 
+    async () => setReports(await api.reports.getReports()); 
+
   useEffect(() => {
-    loadApplications();
+    loadReports();
   }, []);
   
   return (

@@ -9,7 +9,7 @@ export const UserInfoForm = () => {
           Имя
         </Form.Label>
         <Col sm="10">
-          <Form.Control plaintext readOnly defaultValue="email@example.com" />
+          <Form.Control plaintext readOnly defaultValue="" />
         </Col>
       </Form.Group>
       

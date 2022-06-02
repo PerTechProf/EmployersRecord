@@ -14,7 +14,6 @@ namespace EmployersRecord.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    [Authorize]
     public class ApplicationsController : Controller
     {
         private readonly ILogger<ApplicationsController> _logger;
@@ -30,7 +29,7 @@ namespace EmployersRecord.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Application> GetApplications() {
+        public IEnumerable<ApplicationModel> GetApplications() {
             return _applications.GetApplications();
         }
 

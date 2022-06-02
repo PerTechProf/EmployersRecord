@@ -31,6 +31,11 @@ namespace EmployersRecord.Controllers
       await _auth.Register(model);
     }
 
+    [HttpGet]
+    public IEnumerable<EmployerModel> GetEmployers() {
+        return _auth.GetEmployers();
+    }
+
     [HttpPost]
     public async Task<TokenModel> Login(LoginModel model) {
       var token = await _auth.CreateToken(model.Email, model.Password);

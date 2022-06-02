@@ -3,7 +3,6 @@ import { Form, InputGroup, Button, Col } from 'react-bootstrap'
 import { useApi } from '../logic/hooks';
 
 export const AddEmployerForm = ({
-  onSubmit,
   id = null,
   name = "",
   position = "",
@@ -24,28 +23,21 @@ export const AddEmployerForm = ({
   const phoneNumberInput = useRef();
   const hireDateInput = useRef();
 
-  const handleChange = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      return;
-    }
-    setValidated(true);
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (validated)
+    setValidated(event.target.checkValidity());
+    if (event.target.checkValidity())
       auth.createEmployer(
-        nameInput.current.value,
-        positionInput.current.value,
-        emailInput.current.value,
-        passwordInput.current.value,
-        phoneNumberInput.current.value
+        nameInput?.current?.value,
+        positionInput?.current?.value,
+        emailInput?.current?.value,
+        passwordInput?.current?.value,
+        phoneNumberInput?.current?.value
       );
   }
 
   return (
-    <Form noValidate validated={validated} onChange={handleChange} onSubmit={handleSubmit}>
+    <Form validated={validated} onSubmit={handleSubmit}>
       <Form.Row>
         <Form.Group as={Col} md="8" controlId="validationCustom01">
           <Form.Label>Имя</Form.Label>

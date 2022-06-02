@@ -17,9 +17,9 @@ export const EmployersList = ({employers}) => {
         </tr>
       </thead>
       <tbody>
-        {employers.map((employer) =>
+        {employers.map((employer, index) =>
                 <tr key={employer.id}>
-                  <td className="d-none d-md-table-cell">{employer.id}</td>
+                  <td className="d-none d-md-table-cell">{index + 1}</td>
                   <td>{employer.name}</td>
                   <td className="d-none d-md-table-cell">{employer.email}</td>
                   <td className="d-none d-sm-table-cell">{employer.position}</td>

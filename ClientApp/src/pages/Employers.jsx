@@ -1,20 +1,18 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { AddEmployerForm } from '../components/AddEmployerForm'
 import { EmployersList } from '../components/EmployersList'
 import { Container } from 'react-bootstrap'
-import { auth } from '../logic/api'
+import { useApi } from '../logic/hooks'
 
 export const Employers = () => {
-  const employers = [
-    {
-      id: 1,
-      name: "abc",
-      position: "ABC",
-      number: "7999",
-      hireDate: "21.01.22",
-      fireDate: "23.04.22"
-    }
-  ];
+  const [employers, setEmployers] = useState([]);
+  const api = useApi();
+
+  const loadEmployers = 
+    async () => setEmployers(await api.auth.getEmployers()); 
+  useEffect(() => {
+    loadEmployers();
+  }, []);
 
   return <Container className='p-5 d-sm-mw-60'>
     <AddEmployerForm/>

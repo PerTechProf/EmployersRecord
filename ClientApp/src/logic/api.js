@@ -38,6 +38,11 @@ export const applications = {
     get(applicationsController,"GetApplications")
 }
 
+export const reports = {
+  getReports: () =>
+    get(reportsController,"GetReports")
+}
+
 export const auth = {
   login: async function(email, password) {
     store.dispatch(
@@ -60,12 +65,15 @@ export const auth = {
         hireDate,
         id
       })
-  }
+  },
+  getEmployers: () => 
+    get(authController, "GetEmployers")
 }
 
 export default {
   get,
   post,
   auth,
-  applications
+  applications,
+  reports
 }

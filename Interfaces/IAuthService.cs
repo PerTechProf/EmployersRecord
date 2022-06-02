@@ -16,5 +16,6 @@ namespace EmployersRecord.Interfaces
         void EnsureIsEditor();
         Task<string> CreateToken(string email, string password);
         Task Register(RegistrationModel model);
+        IEnumerable<EmployerModel> GetEmployers();
     }
 }

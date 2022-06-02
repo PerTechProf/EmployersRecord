@@ -112,5 +112,9 @@ namespace EmployersRecord.Services
             await _userManager.AddClaimAsync(user, new Claim("Email", user.Email));
             // await _userManager.AddClaimAsync(user, new Claim("UserId", user.Id.ToString()));
         }
+
+        public IEnumerable<EmployerModel> GetEmployers() {
+            return _db.Users.Select((user) => new EmployerModel(user));
+        }
     }
 }

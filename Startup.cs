@@ -101,6 +101,7 @@ namespace EmployersRecord
             
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IApplicationsService, ApplicationsService>();
+            services.AddScoped<IReportsService, ReportsService>();
             services.AddScoped<IHttpUserService, HttpUserService>();
         }
 
