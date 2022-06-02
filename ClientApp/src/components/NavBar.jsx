@@ -15,19 +15,23 @@ export const NavBar = () => {
         <LinkContainer to="/"><Navbar.Brand>Tinfoil</Navbar.Brand></LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <LinkContainer to="employers"><Nav.Link>Сотрудники</Nav.Link></LinkContainer>
-            <LinkContainer to="applications"><Nav.Link>Заявки</Nav.Link></LinkContainer>
-            {isEditor && <LinkContainer to="reports"><Nav.Link>Отчёты</Nav.Link></LinkContainer>}
-          </Nav>
-          <Nav>
-            {token ? <>
-              <LinkContainer to="account-info"><Nav.Link>Профиль</Nav.Link></LinkContainer>
-              <LinkContainer to="logout"><Nav.Link>Выйти</Nav.Link></LinkContainer>
-              </> :
+        { token ? <>
+            <Nav className="mr-auto">
+              <LinkContainer to="employers"><Nav.Link>Сотрудники</Nav.Link></LinkContainer>
+              <LinkContainer to="applications"><Nav.Link>Заявки</Nav.Link></LinkContainer>
+              {isEditor && <LinkContainer to="reports"><Nav.Link>Отчёты</Nav.Link></LinkContainer>}
+            </Nav>
+            <Nav>
+                <LinkContainer to="account-info"><Nav.Link>Профиль</Nav.Link></LinkContainer>
+                <LinkContainer to="logout"><Nav.Link>Выйти</Nav.Link></LinkContainer>
+            </Nav>
+          </>
+          : <>
+            <Nav className="ml-auto">
               <LinkContainer to="login"><Nav.Link>Войти</Nav.Link></LinkContainer>
-            }
-          </Nav>
+            </Nav>
+          </>
+        }
         </Navbar.Collapse>
       </Container>
     </Navbar>
