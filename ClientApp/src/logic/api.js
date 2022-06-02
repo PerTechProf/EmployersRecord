@@ -37,14 +37,15 @@ export const applications = {
 
 export const auth = {
   controller: "Auth",
-  login: async (email, password) =>
+  login: async function(email, password) {
     store.dispatch(
       setToken(
         (await post(this.controller, "Login", 
           {email, password})
         ).token
       )
-    ),
+    )
+  },
   createEmployer: function(name, position, email, password, 
     phoneNumber, hireDate = new Date().toISOString(), id = null
   ) {
