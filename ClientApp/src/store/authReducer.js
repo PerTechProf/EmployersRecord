@@ -4,8 +4,8 @@ import { getCookies } from "../logic";
 export const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    token: (console.log(getCookies().MpskladAuthToken),''),
-    isEditor: false
+    token: getCookies().AuthToken,
+    isEditor: true
   },
   reducers: {
     setToken: (state, action) => {

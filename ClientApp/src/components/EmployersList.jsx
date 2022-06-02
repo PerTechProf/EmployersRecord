@@ -3,31 +3,32 @@ import { Table, Button } from "react-bootstrap";
 
 export const EmployersList = ({employers}) => {
   return (
-    <
 // @ts-ignore
-    Table striped bordered hover size="sm">
+    <Table striped bordered hover size="sm">
       <thead>
         <tr>
-          <th>#</th>
+          <th className="d-none d-md-table-cell">#</th>
           <th>Имя</th>
-          <th>Почта</th>
-          <th>Должность</th>
-          <th>Номер телефона</th>
-          <th>Дата устройства</th>
-          <th>Дата увольнения</th>
+          <th className="d-none d-md-table-cell">Почта</th>
+          <th className="d-none d-sm-table-cell">Должность</th>
+          <th className="d-none d-sm-table-cell">Номер телефона</th>
+          <th className="d-none d-md-table-cell">Дата устройства</th>
+          <th className="d-none d-md-table-cell">Дата увольнения</th>
         </tr>
       </thead>
       <tbody>
         {employers.map((employer) =>
                 <tr key={employer.id}>
-                  <td>{employer.id}</td>
+                  <td className="d-none d-md-table-cell">{employer.id}</td>
                   <td>{employer.name}</td>
-                  <td>{employer.email}</td>
-                  <td>{employer.position}</td>
-                  <td>{employer.phoneNumber}</td>
-                  <td>{employer.hireDate}</td>
-                  <td>{employer.fireDate}</td>
-                  <td><Button variant="outline-primary">Изменить</Button></td>
+                  <td className="d-none d-md-table-cell">{employer.email}</td>
+                  <td className="d-none d-sm-table-cell">{employer.position}</td>
+                  <td className="d-none d-sm-table-cell">{employer.phoneNumber}</td>
+                  <td className="d-none d-md-table-cell">{employer.hireDate}</td>
+                  <td className="d-none d-md-table-cell">{employer.fireDate}</td>
+                  <td>
+                      <Button className="mr-auto ml-auto" variant="outline-primary">Изменить</Button>
+                  </td>
                 </tr>
           )}
 

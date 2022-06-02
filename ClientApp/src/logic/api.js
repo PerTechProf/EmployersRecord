@@ -35,27 +35,29 @@ export const applications = {
     get(this.controller,"GetApplications")
 }
 
-export const login = async (email, password) =>
-  store.dispatch(
-    setToken(
-      (await post("api/Auth/Login", 
-        {email, password})
-      ).token
-    )
-  );
-
 export const auth = {
   controller: "Auth",
-  createEmployer: (name = "", position = "", email = "", password = "", phoneNumber = "", hireDate = new Date().toISOString(), id = null) =>
-    post(this.conroller, "CreateEmployer", {
-      name,
-      position,
-      email,
-      password,
-      phoneNumber,
-      hireDate,
-      id
-    }),
+  login: async (email, password) =>
+    store.dispatch(
+      setToken(
+        (await post(this.controller, "Login", 
+          {email, password})
+        ).token
+      )
+    ),
+  createEmployer: function(name, position, email, password, 
+    phoneNumber, hireDate = new Date().toISOString(), id = null
+  ) {
+      return post(this.controller, "CreateEmployer", {
+        name,
+        position,
+        email,
+        password,
+        phoneNumber,
+        hireDate,
+        id
+      })
+  }
 }
 
 export default {

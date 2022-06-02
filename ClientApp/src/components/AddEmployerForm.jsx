@@ -1,40 +1,57 @@
 import React, { useRef, useState } from 'react'
 import { Form, InputGroup, Button, Col } from 'react-bootstrap'
-import { auth } from "../logic/api";
+import { useApi } from '../logic/hooks';
 
-export const AddEmployerForm = ({ id = null, name = "", position = "", email = "", password = "", phoneNumber = "", hireDate = new Date().toISOString(), isEditing = false }) => {
+export const AddEmployerForm = ({
+  onSubmit,
+  id = null,
+  name = "",
+  position = "",
+  email = "",
+  password = "",
+  phoneNumber = "",
+  hireDate = new Date().toISOString(),
+  isEditor = false
+}) => {
   const [validated, setValidated] = useState(false);
-  const nameInput = useRef(name);
-  const positionInput = useRef(position);
-  const emailInput = useRef(email);
-  const passwordInput = useRef(password);
-  const phoneNumberInput = useRef(phoneNumber);
-  const hireDateInput = useRef(hireDate);
 
-  const handleSubmit = (event) => {
+  const { auth } = useApi();
+
+  const nameInput = useRef();
+  const positionInput = useRef();
+  const emailInput = useRef();
+  const passwordInput = useRef();
+  const phoneNumberInput = useRef();
+  const hireDateInput = useRef();
+
+  const handleChange = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+      return;
     }
     setValidated(true);
-    auth.createEmployer(
-      nameInput.current.value,
-      positionInput.current.val,
-      emailInput.value,
-      passwordInput.value,
-      phoneNumberInput.value,
-      hireDateInput.value
-    );
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (validated)
+      auth.createEmployer(
+        nameInput.current.value,
+        positionInput.current.value,
+        emailInput.current.value,
+        passwordInput.current.value,
+        phoneNumberInput.current.value
+      );
+  }
+
   return (
-    <Form noValidate validated={validated} onSubmit={handleSubmit}>
+    <Form noValidate validated={validated} onChange={handleChange} onSubmit={handleSubmit}>
       <Form.Row>
-        <Form.Group as={Col} md="4" controlId="validationCustom01">
+        <Form.Group as={Col} md="8" controlId="validationCustom01">
           <Form.Label>Имя</Form.Label>
           <Form.Control
             ref={nameInput}
+            defaultValue={name}
             required
             type="text"
           />
@@ -43,8 +60,21 @@ export const AddEmployerForm = ({ id = null, name = "", position = "", email = "
           <Form.Label>Должность</Form.Label>
           <Form.Control
             ref={positionInput}
+            defaultValue={position}
             required
             type="text"
+          />
+        </Form.Group>
+      </Form.Row>
+      <Form.Row>
+        <Form.Group as={Col} md="4" controlId="validationCustom05">
+          <Form.Label>Пароль</Form.Label>
+          <Form.Control
+            ref={passwordInput}
+            defaultValue={password}
+            type="password"
+            placeholder="password"
+            required
           />
         </Form.Group>
         <Form.Group as={Col} md="4" controlId="validationCustomUsername">
@@ -55,6 +85,7 @@ export const AddEmployerForm = ({ id = null, name = "", position = "", email = "
             </InputGroup.Prepend>
             <Form.Control
               ref={emailInput}
+              defaultValue={email}
               type="email"
               placeholder="Email"
               aria-describedby="inputGroupPrepend"
@@ -65,31 +96,11 @@ export const AddEmployerForm = ({ id = null, name = "", position = "", email = "
             </Form.Control.Feedback>
           </InputGroup>
         </Form.Group>
-      </Form.Row>
-      <Form.Row>
-        <Form.Group as={Col} md="3" controlId="validationCustom05">
-          <Form.Label>Пароль</Form.Label>
-          <Form.Control
-            ref={passwordInput}
-            type="password"
-            placeholder="password"
-            required
-          />
-        </Form.Group>
-      </Form.Row>
-      <Form.Row>
-        <Form.Group as={Col} md="6" controlId="validationCustom03">
+        <Form.Group as={Col} md="4" controlId="validationCustom03">
           <Form.Label>Номер телефона</Form.Label>
           <Form.Control
             ref={phoneNumberInput}
-            type="text"
-            required
-          />
-        </Form.Group>
-        <Form.Group as={Col} md="3" controlId="validationCustom04">
-          <Form.Label>Дата устройства</Form.Label>
-          <Form.Control
-            ref={hireDateInput}
+            defaultValue={phoneNumber}
             type="text"
             required
           />
