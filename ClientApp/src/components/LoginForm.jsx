@@ -1,8 +1,9 @@
 import React from 'react'
-import { login } from '../logic/api';
+import { useApi } from '../logic/hooks';
 
 
 export const LoginForm = () => {
+  const { auth: { login } } = useApi();
   const onSubmit = async (event) => {
     event.preventDefault();
     const email = event.target.elements.email.value;
