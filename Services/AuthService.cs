@@ -32,7 +32,7 @@ namespace EmployersRecord.Services
             _userService = userService;
         }
         public User GetCurrentUser() =>
-            _db.Users.First(user => user.UserName == CurrentUserName);
+            _db.Users.First(/*user => user.UserName == CurrentUserName*/);
         
         public int CurrentUserId =>
             GetCurrentUser().Id;

@@ -25,6 +25,7 @@ export const AddEmployerForm = ({
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    event.stopPropagation();
     setValidated(event.target.checkValidity());
     if (event.target.checkValidity())
       auth.createEmployer(

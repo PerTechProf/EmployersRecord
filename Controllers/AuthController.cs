@@ -36,6 +36,11 @@ namespace EmployersRecord.Controllers
         return _auth.GetEmployers();
     }
 
+    [HttpGet]
+    public EmployerModel GetUserInfo(){
+      return new EmployerModel(_auth.GetCurrentUser());
+    }
+
     [HttpPost]
     public async Task<TokenModel> Login(LoginModel model) {
       var token = await _auth.CreateToken(model.Email, model.Password);
@@ -60,5 +65,7 @@ namespace EmployersRecord.Controllers
     // [HttpPut]
     // public async Task EditEmployer([FromBody] RegistrationModel model) =>
     //     await _auth.Register(model);
+
+    
   }
 }

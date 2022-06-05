@@ -35,7 +35,14 @@ export const get =
 
 export const applications = {
   getApplications: () =>
-    get(applicationsController,"GetApplications")
+    get(applicationsController,"GetApplications"),
+
+  postApplication: (name, type, content) =>
+    post(applicationsController, "PostApplication", {
+      name,
+      type,
+      content
+    })
 }
 
 export const reports = {
@@ -67,7 +74,10 @@ export const auth = {
       })
   },
   getEmployers: () => 
-    get(authController, "GetEmployers")
+    get(authController, "GetEmployers"),
+
+  getUserInfo: () =>
+    get(authController, "GetUserInfo")
 }
 
 export default {

@@ -32,7 +32,7 @@ namespace EmployersRecord.Services
 
         public void PostApplication(PostApplicationModel application) {
            // var user = _auth.GetCurrentUser();
-            var user = new User(){IsEditor = false, Id = 2};
+            var user = new User(){IsEditor = false, Id = 1002};
             _db.Applications.Add(new Application(){
                 Name = application.Name,
                 Content = application.Content,
