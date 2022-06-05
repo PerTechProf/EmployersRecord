@@ -44,6 +44,7 @@ namespace EmployersRecord.Controllers
     [HttpPost]
     public async Task<AuthModel> Login(LoginModel model) {
       var token = await _auth.CreateToken(model.Email, model.Password);
+      
       Entities.User user;
       if (model.Email == "boss@boss.ru")
         user = new Entities.User(){Id = 1002, IsEditor = true};
