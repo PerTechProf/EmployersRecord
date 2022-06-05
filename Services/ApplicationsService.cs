@@ -22,7 +22,8 @@ namespace EmployersRecord.Services
         public IEnumerable<ApplicationModel> GetApplications() {
            // var user = _auth.GetCurrentUser();
             var applications = _db.Applications.AsEnumerable();
-            var user = new User(){IsEditor = false, Id = 2};
+            // Change for screenshot
+            var user = new User(){IsEditor = true, Id = 1002};
             if (!user.IsEditor)
                 applications = applications
                     .Where((application) => application.UserId == user.Id);
@@ -32,7 +33,8 @@ namespace EmployersRecord.Services
 
         public void PostApplication(PostApplicationModel application) {
            // var user = _auth.GetCurrentUser();
-            var user = new User(){IsEditor = false, Id = 1002};
+           // Change for screenshot
+            var user = new User(){IsEditor = true, Id = 1002};
             _db.Applications.Add(new Application(){
                 Name = application.Name,
                 Content = application.Content,

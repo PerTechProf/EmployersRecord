@@ -1,5 +1,5 @@
 import { store } from "../store";
-import { selectToken, setToken } from "../store/authReducer";
+import { selectToken, setUser } from "../store/authReducer";
 
 const authController = "Auth";
 const applicationsController = "Applications";
@@ -53,13 +53,21 @@ export const reports = {
 export const auth = {
   login: async function(email, password) {
     store.dispatch(
-      setToken(
-        (await post(authController, "Login", 
-          {email, password})
-        ).token
+      setUser(
+        await post(
+          authController, 
+          "Login", 
+          {email, password}
+        )
       )
     )
   },
+
+  logout: async () => {
+    await post(authController, "Logout");
+    store.dispatch(setUser(null));
+  },
+
   createEmployer: function(name, position, email, password, 
     phoneNumber, hireDate = new Date().toISOString(), id = null
   ) {
@@ -73,6 +81,7 @@ export const auth = {
         id
       })
   },
+
   getEmployers: () => 
     get(authController, "GetEmployers"),
 

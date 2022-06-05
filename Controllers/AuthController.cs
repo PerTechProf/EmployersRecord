@@ -42,22 +42,29 @@ namespace EmployersRecord.Controllers
     }
 
     [HttpPost]
-    public async Task<TokenModel> Login(LoginModel model) {
+    public async Task<AuthModel> Login(LoginModel model) {
       var token = await _auth.CreateToken(model.Email, model.Password);
+      Entities.User user;
+      if (model.Email == "boss@boss.ru")
+        user = new Entities.User(){Id = 1002, IsEditor = true};
+      else
+        user = new Entities.User(){Id = 2002, IsEditor = false};
       
-      SetAuthCookie(token);
+      SetAuthCookie(Options.CookieName, token);
+      SetAuthCookie("IsEditor", user.IsEditor.ToString());
 
-      return new TokenModel(token);
+      return new AuthModel(token, user);
     }
     
     [HttpPost]
     public StatusCodeResult LogOut()
     {
       Response.Cookies.Delete(Options.CookieName);
+      Response.Cookies.Delete("IsEditor");
       return Ok();
     }
 
-    private void SetAuthCookie(string token) =>
+    private void SetAuthCookie(string name, string token) =>
       // TODO: Use some boilerplate instead of all this?
       Response.Cookies.Append(
         Options.CookieName, token, new CookieOptions { MaxAge = TimeSpan.FromDays(30) });
@@ -65,7 +72,5 @@ namespace EmployersRecord.Controllers
     // [HttpPut]
     // public async Task EditEmployer([FromBody] RegistrationModel model) =>
     //     await _auth.Register(model);
-
-    
   }
 }

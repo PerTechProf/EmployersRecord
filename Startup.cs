@@ -125,38 +125,39 @@ namespace EmployersRecord
                 app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+                app.UseHttpsRedirection();
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
             app.Use(
                 async (context, next) =>
                 {
-                const string authKey = "Authorization";
+                    const string authKey = "Authorization";
 
-                if (!context.Request.Headers.ContainsKey(authKey))
-                {
-                    var cookie = context.Request.Cookies[Options.CookieName];
+                    if (!context.Request.Headers.ContainsKey(authKey))
+                    {
+                        var cookie = context.Request.Cookies[Options.CookieName];
 
-                    if (cookie != null)
-                    {
-                        context.Request.Headers.Add(authKey, $"Bearer {cookie}");
-                    }
-                    else
-                    {
-                        if (context.Request.Query.TryGetValue(authKey, out var queryTokens) 
-                            && queryTokens.Count == 1
-                            && queryTokens[0] != null)
+                        if (cookie != null)
                         {
-                            context.Request.Headers.Add(authKey, $"Bearer {queryTokens[0]}");
+                            context.Request.Headers.Add(authKey, $"Bearer {cookie}");
+                        }
+                        else
+                        {
+                            if (context.Request.Query.TryGetValue(authKey, out var queryTokens) 
+                                && queryTokens.Count == 1
+                                && queryTokens[0] != null)
+                            {
+                                context.Request.Headers.Add(authKey, $"Bearer {queryTokens[0]}");
+                            }
                         }
                     }
-                }
 
-                await next();
-            });
+                    await next();
+                }
+            );
 
             app.UseRouting();
 

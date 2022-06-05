@@ -32,7 +32,7 @@ namespace EmployersRecord.Services
             _userService = userService;
         }
         public User GetCurrentUser() =>
-            _db.Users.First(/*user => user.UserName == CurrentUserName*/);
+            _db.Users.First(user => user.Id == 1002);
         
         public int CurrentUserId =>
             GetCurrentUser().Id;
@@ -88,8 +88,6 @@ namespace EmployersRecord.Services
 
         public async Task Register(RegistrationModel model)
         {
-            // EnsureIsEditor();
-
             var user = new User
             {
                 Email = model.Email,
