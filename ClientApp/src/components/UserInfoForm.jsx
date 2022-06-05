@@ -6,7 +6,7 @@ export const UserInfoForm = ({
   position,
   email,
   phoneNumber,
-  hireDate,
+  hireDate = new Date().toLocaleDateString(),
 }) => {
   return (
     <Form>

@@ -69,7 +69,7 @@ export const auth = {
   },
 
   createEmployer: function(name, position, email, password, 
-    phoneNumber, hireDate = new Date().toISOString(), id = null
+    phoneNumber, hireDate = new Date().toLocaleDateString(), id = null
   ) {
       return post(authController, "CreateEmployer", {
         name,

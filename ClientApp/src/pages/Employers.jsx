@@ -9,7 +9,7 @@ export const Employers = () => {
   const api = useApi();
 
   const loadEmployers = 
-    async () => setEmployers(await api.auth.getEmployers()); 
+    async () => setEmployers((await api.auth.getEmployers()).map((employer) => ({...employer, hireDate: new Date(employer.hireDate)}))); 
   useEffect(() => {
     loadEmployers();
   }, []);

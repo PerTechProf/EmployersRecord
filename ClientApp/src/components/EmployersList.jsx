@@ -24,7 +24,7 @@ export const EmployersList = ({employers}) => {
                   <td className="d-none d-md-table-cell">{employer.email}</td>
                   <td className="d-none d-sm-table-cell">{employer.position}</td>
                   <td className="d-none d-sm-table-cell">{employer.phoneNumber}</td>
-                  <td className="d-none d-md-table-cell">{employer.hireDate}</td>
+                  <td className="d-none d-md-table-cell">{employer.hireDate.toLocaleDateString()}</td>
                   <td className="d-none d-md-table-cell">{employer.fireDate}</td>
                   <td>
                       <Button className="mr-auto ml-auto" variant="outline-primary">Изменить</Button>

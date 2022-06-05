@@ -24,7 +24,7 @@ export const ApplicationsList = ({applications}) => {
                   <td>{application.employer.name}</td>
                   <td>{applicationTypes[application.type]}</td>
                   <td>{statusTypes[application.status]}</td>
-                  <td>{application.date}</td>
+                  <td>{application.date.toLocaleDateString()}</td>
                   <td>
                     <Button variant="outline-success">Принять</Button>
                     <Button className="ml-3" variant="outline-danger">Отклонить</Button>

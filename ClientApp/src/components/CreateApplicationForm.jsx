@@ -18,7 +18,7 @@ export const CreateApplicationForm = () => {
     if (event.target.checkValidity())
       applications.postApplication(
         nameInput.current.value,
-        typeInput.current.value,
+        +typeInput.current.value,
         contentInput.current.value
       );
   };
