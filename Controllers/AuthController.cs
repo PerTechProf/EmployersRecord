@@ -67,7 +67,7 @@ namespace EmployersRecord.Controllers
     private void SetAuthCookie(string name, string token) =>
       // TODO: Use some boilerplate instead of all this?
       Response.Cookies.Append(
-        Options.CookieName, token, new CookieOptions { MaxAge = TimeSpan.FromDays(30) });
+        name, token, new CookieOptions { MaxAge = TimeSpan.FromDays(30) });
 
     // [HttpPut]
     // public async Task EditEmployer([FromBody] RegistrationModel model) =>
