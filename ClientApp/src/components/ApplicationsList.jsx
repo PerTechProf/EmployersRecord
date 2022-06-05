@@ -1,8 +1,12 @@
 import React from "react";
 import { Table, Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import { applicationTypes, statusTypes } from "../logic/mappers";
+import { selectIsEditor } from "../store/authReducer";
 
 export const ApplicationsList = ({applications}) => {
+  const isEditor = useSelector(selectIsEditor);
+
   return (
 // @ts-ignore
     <Table striped bordered hover size="sm">
@@ -10,25 +14,25 @@ export const ApplicationsList = ({applications}) => {
         <tr>
           <th>#</th>
           <th>Имя</th>
-          <th>Имя сотрудника</th>
+          {isEditor && <th>Имя сотрудника</th>}
           <th>Тип заявки</th>
           <th>Статус заявки</th>
           <th>Дата создания заявки</th>
         </tr>
       </thead>
       <tbody>
-        {applications.map((application) =>
+        {applications.map((application, index) =>
                 <tr key={application.id}>
-                  <td>{application.id}</td>
+                  <td>{index}</td>
                   <td>{application.name}</td>
-                  <td>{application.employer.name}</td>
+                  {isEditor && <td>{application.employer.name}</td>}
                   <td>{applicationTypes[application.type]}</td>
                   <td>{statusTypes[application.status]}</td>
                   <td>{application.date.toLocaleDateString()}</td>
-                  <td>
+                  {isEditor && <td>
                     <Button variant="outline-success">Принять</Button>
                     <Button className="ml-3" variant="outline-danger">Отклонить</Button>
-                  </td>
+                  </td>}
                 </tr>
           )}
 
