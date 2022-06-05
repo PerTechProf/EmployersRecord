@@ -49,7 +49,7 @@ namespace EmployersRecord.Controllers
       if (model.Email == "boss@boss.ru")
         user = new Entities.User(){Id = 1002, IsEditor = true};
       else
-        user = new Entities.User(){Id = 3002, IsEditor = false};
+        user = new Entities.User(){Id = 3003, IsEditor = false};
       
       SetAuthCookie(Options.CookieName, token);
       SetAuthCookie("IsEditor", user.IsEditor.ToString());

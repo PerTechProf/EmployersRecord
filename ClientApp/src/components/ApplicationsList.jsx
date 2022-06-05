@@ -49,7 +49,7 @@ export const ApplicationsList = ({applications}) => {
                     <Button className="ml-3" variant="outline-danger">Отклонить</Button>
                     </>}
                     <Button variant="outline-primary" 
-                      onClick={onShowModal(application.name, application.content)}
+                      onClick={() => onShowModal(application.name, application.content)}
                     >
                       Просмотреть
                     </Button>

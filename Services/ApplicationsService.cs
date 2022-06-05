@@ -23,7 +23,7 @@ namespace EmployersRecord.Services
            // var user = _auth.GetCurrentUser();
             var applications = _db.Applications.Include(_ => _.User).AsEnumerable();
             // Change for screenshot
-            var user = new User(){IsEditor = false, Id = 3002};
+            var user = new User(){IsEditor = true, Id = 1002};
             if (!user.IsEditor)
                 applications = applications
                     .Where((application) => application.UserId == user.Id);
@@ -34,7 +34,7 @@ namespace EmployersRecord.Services
         public void PostApplication(PostApplicationModel application) {
            // var user = _auth.GetCurrentUser();
            // Change for screenshot
-            var user = new User(){IsEditor = true, Id = 3002};
+            var user = new User(){IsEditor = true, Id = 3003};
             _db.Applications.Add(new Application(){
                 Name = application.Name,
                 Content = application.Content,
