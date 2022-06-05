@@ -9,16 +9,14 @@ export const authSlice = createSlice({
   },
   reducers: {
     setUser: (state, action) => {
-      state = {...state, 
-        token: action.payload?.token,
-        isEditor: action.payload?.isEditor,
-        userId: action.payload?.userId
-      };
+      console.log(state, action)
+      state.token = action.payload?.token;
+      state.isEditor = action.payload?.isEditor;
     }
   }
 });
 
-export const { setUser, setAsEditor } = authSlice.actions;
+export const { setUser } = authSlice.actions;
 
 export const selectToken = (state) => state.auth.token;
 export const selectIsEditor = (state) => state.auth.isEditor;

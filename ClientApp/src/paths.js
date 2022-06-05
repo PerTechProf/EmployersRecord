@@ -12,6 +12,7 @@ import { UserInfo } from './pages/UserInfo';
 import { useToken, useIsEditor } from './logic/hooks';
 import { Reports } from './pages/Reports';
 import { Navigate } from 'react-router-dom';
+import { Logout } from './components/Logout';
 
 const Paths = () => {
   const token = useToken();
@@ -25,6 +26,7 @@ const Paths = () => {
         {isEditor && <Route path="employers" element={<Employers />}/>}
         <Route path="applications" element={<Applications />}/>
         <Route path="account-info" element={<UserInfo />}/>
+        <Route path="logout" element={<Logout />}/>
         {isEditor && <Route path="reports" element={<Reports />}/>}
       </> : <>
         <Route path="login" element={<Login />}/>

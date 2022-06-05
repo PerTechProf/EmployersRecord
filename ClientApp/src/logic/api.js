@@ -6,7 +6,7 @@ const applicationsController = "Applications";
 const reportsController = "Reports";
 
 const request =
-  async (controller, apiMethod, postBody, getArgs, method) => {
+  async (controller, apiMethod, postBody, getArgs, method, isJSON) => {
     const headers = {
       'Content-Type': 'application/json',
     };
@@ -15,7 +15,7 @@ const request =
     if (token)
       headers['Authorization'] = `Bearer ${token}`;
 
-    return await (await fetch("api/" + controller + "/" + apiMethod 
+    let response = await fetch("api/" + controller + "/" + apiMethod 
         + (getArgs ? `?${Object.entries(getArgs)
           .map(arg => arg[0]+'='+arg[1]).join('&')}`
         : ''),
@@ -24,14 +24,18 @@ const request =
         method: method,
         body: postBody && JSON.stringify(postBody)
       }
-    )).json();
+    );
+
+    if (isJSON)
+      return await response.json();
+    return response;
 }
 
 export const post = 
-  (conroller, method, body) => request(conroller, method, body, null, 'POST');
+  (conroller, method, body, isJSON=true) => request(conroller, method, body, null, 'POST', isJSON);
 
 export const get =
-  (controller, method, body) => request(controller, method, null, body, 'GET');
+  (controller, method, body, isJSON=true) => request(controller, method, null, body, 'GET', isJSON);
 
 export const applications = {
   getApplications: () =>
@@ -64,12 +68,12 @@ export const auth = {
   },
 
   logout: async () => {
-    await post(authController, "Logout");
+    await post(authController, "Logout", null, false);
     store.dispatch(setUser(null));
   },
 
   createEmployer: function(name, position, email, password, 
-    phoneNumber, hireDate = new Date().toLocaleDateString(), id = null
+    phoneNumber, hireDate = new Date().toISOString(), id = null
   ) {
       return post(authController, "CreateEmployer", {
         name,
