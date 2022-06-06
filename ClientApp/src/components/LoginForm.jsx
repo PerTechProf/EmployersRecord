@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { useApi, useToken } from '../logic/hooks';
@@ -8,6 +9,7 @@ export const LoginForm = () => {
   const { auth: { login } } = useApi();
 
   const token = useToken();
+  const [isWrongAttempt, setWrongAttempt] = useState(false);
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -15,7 +17,11 @@ export const LoginForm = () => {
     const password = event.target.elements.password.value;
     if (!(email && password))
       return;
-    login(email, password);
+    try {
+      await login(email, password);
+    } catch {
+      setWrongAttempt(true);
+    }
   }
 
   console.log(token);
@@ -35,7 +41,7 @@ export const LoginForm = () => {
         <input type="password" id="form2Example2" className="form-control" name="password" />
       </div>
 
-      <button type="submit" className="btn btn-primary btn-block mb-4">Войти</button>
+      <Button type="submit" variant={isWrongAttempt ? 'danger' : 'primary'} className="btn-block">Войти</Button>
 
     </form>
   )

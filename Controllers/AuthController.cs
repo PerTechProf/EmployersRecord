@@ -47,8 +47,20 @@ namespace EmployersRecord.Controllers
     }
 
     [HttpPost]
+    public Task ChangePhoneNumber([FromBody]string phoneNumber) =>
+      _auth.ChangePhoneNumber(phoneNumber);
+    
+    [HttpPost]
+    public Task ChangePassword(ChangePasswordModel passwords) =>
+      _auth.ChangePassword(passwords.CurrentPassword, passwords.Password);
+
+    [HttpPost]
     public async Task<AuthModel> Login(LoginModel model) {
       var (token, user) = await _auth.GetUserWithNewToken(model.Email, model.Password);
+
+      if (user.FireDate != null) {
+        throw new ("Вы уволены, поздравляем");
+      }
 
       SetAuthCookie(Options.CookieName, token);
       SetAuthCookie("IsEditor", user.IsEditor.ToString());

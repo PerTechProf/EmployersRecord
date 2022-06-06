@@ -103,6 +103,15 @@ namespace EmployersRecord.Services
             return tokenHandler.WriteToken(token);
         }
 
+        public async Task ChangePassword(string currentPassword, string password) =>
+            await _userManager.ChangePasswordAsync(GetCurrentUser(), currentPassword, password);
+
+        public async Task ChangePhoneNumber(string phoneNumber) =>
+            await _userManager.ChangePhoneNumberAsync(GetCurrentUser(), 
+                phoneNumber, 
+                await _userManager.GenerateChangePhoneNumberTokenAsync(GetCurrentUser(), phoneNumber)
+            );
+
         public async Task Register(RegistrationModel model)
         {
             EnsureIsEditor();

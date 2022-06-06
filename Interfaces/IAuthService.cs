@@ -16,6 +16,9 @@ namespace EmployersRecord.Interfaces
         bool IsEditor();
         void EnsureIsEditor();
         Task<(string, User)> GetUserWithNewToken(string email, string password);
+        Task ChangePassword(string currentPassword, string password);
+
+        Task ChangePhoneNumber(string phoneNumber);
         Task Register(RegistrationModel model);
         Task EditUser(EditUserModel model);
         IEnumerable<EmployerModel> GetEmployers();

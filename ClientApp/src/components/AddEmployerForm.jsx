@@ -46,7 +46,7 @@ export const AddEmployerForm = ({
         emailInput?.current?.value,
         phoneNumberInput?.current?.value,
         hireDateInput.current.value && new Date(hireDateInput.current.value) || hireDate,
-        fireDateInput.current.value ? new Date(fireDateInput.current.value) : fireDate
+        fireDateInput.current.value ? new Date(fireDateInput.current.value) : null
       );
     }
     setEmployerOnEdit(null);
@@ -143,6 +143,10 @@ export const AddEmployerForm = ({
             defaultValue={fireDateParsed}
             type="date"
           />
+        </Form.Group>
+        <Form.Group as={Col} md="3">
+          <Form.Label>Отменить увольнение</Form.Label>
+          <Button onClick={() => fireDateInput.current.value = null}>Вернуть сотрудника</Button>
         </Form.Group>
       </Form.Row>}
       <Button className='float-right' type="submit">{id ? "Изменить данные" : "Добавить сотрудника"}</Button>

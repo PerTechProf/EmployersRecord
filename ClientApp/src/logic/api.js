@@ -102,7 +102,13 @@ export const auth = {
     get(authController, "GetEmployers"),
 
   getUserInfo: () =>
-    get(authController, "GetUserInfo")
+    get(authController, "GetUserInfo"),
+  
+  changePassword: (currentPassword, password) =>
+    post(authController, "ChangePassword", {currentPassword, password}, false),
+  
+  changePhoneNumber: (phoneNumber) =>
+    post(authController, `ChangePhoneNumber`, phoneNumber, false)
 }
 
 export default {
