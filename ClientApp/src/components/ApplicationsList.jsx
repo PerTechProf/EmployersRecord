@@ -56,11 +56,11 @@ export const ApplicationsList = ({applications, updateList}) => {
                   <td>{applicationTypes[application.type]}</td>
                   <td style={{color: ["black","green","red"][application.status]}}>{statusTypes[application.status]}</td>
                   <td>{application.date.toLocaleDateString()}</td>
-                  {isEditor && <td>
+                  {isEditor && <td className="p-0 p-auto d-block">
                     <Button onClick={() => approve(application.id)} variant="outline-success">Принять</Button>
-                    <Button onClick={() => reject(application.id)} className="ml-3" variant="outline-danger">Отклонить</Button>
+                    <Button onClick={() => reject(application.id)} variant="outline-danger">Отклонить</Button>
                   </td>}
-                  <td>
+                  <td className="p-0 p-auto d-block">
                     <Button variant="outline-primary" 
                       onClick={() => onShowModal(application.name, application.content)}
                     >
