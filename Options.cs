@@ -8,7 +8,7 @@ namespace EmployersRecord
         public const string CookieName = "AuthToken";
 
         public static SymmetricSecurityKey GetSigningKey() =>
-        new SymmetricSecurityKey(
-            Encoding.ASCII.GetBytes("035ERRRE-3501-438E-92DD-95AD3C97F847_FC5579DE-B39F-473A-BA2E-9CDE3054122C"));
+            new SymmetricSecurityKey(
+                    System.Text.Encoding.ASCII.GetBytes("PDv7DrqznYL6nv7DrqzjnQYO9JxIsWdcjnQYL6nu0f"));
     }
 }

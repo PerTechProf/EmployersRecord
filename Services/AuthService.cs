@@ -32,7 +32,7 @@ namespace EmployersRecord.Services
             _userService = userService;
         }
         public User GetCurrentUser() =>
-            _db.Users.First(user => user.Id == 1002);
+            _db.Users.First(user => user.UserName == CurrentUserName);
         
         public int CurrentUserId =>
             GetCurrentUser().Id;
@@ -56,8 +56,7 @@ namespace EmployersRecord.Services
             }
         }
 
-        public async Task<string> CreateToken(string email, string password)
-        {
+        public async Task<User> GetUserAuth(string email, string password) {
             var user = await _userManager.FindByEmailAsync(email);
 
             if (user == null || !await _userManager.CheckPasswordAsync(user, password))
@@ -65,29 +64,49 @@ namespace EmployersRecord.Services
                 throw new ("Логин или пароль неверны.");
             }
 
-            return await CreateToken(user);
+            return user;
+        }
+
+        public async Task<(string, User)> GetUserWithNewToken(string email, string password)
+        {
+            var user = await GetUserAuth(email, password);
+
+            return (await CreateToken(user), user);
         }
 
         private async Task<string> CreateToken(User user)
         {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var credentials = new SigningCredentials(
+                new SymmetricSecurityKey(
+                    System.Text.Encoding.ASCII.GetBytes("PDv7DrqznYL6nv7DrqzjnQYO9JxIsWdcjnQYL6nu0f")
+                ), 
+                SecurityAlgorithms.HmacSha256Signature
+            );
+
             var identity = new ClaimsIdentity(
                 await _userManager.GetClaimsAsync(user), "Token", ClaimsIdentity.DefaultNameClaimType,
                 ClaimsIdentity.DefaultRoleClaimType);
 
-            var jwt = new JwtSecurityToken(
-                notBefore: DateTime.UtcNow, claims: identity.Claims, expires: DateTime.UtcNow.AddDays(30),
-                signingCredentials: new SigningCredentials(
-                    new SymmetricSecurityKey(
-                        System.Text.Encoding.ASCII.GetBytes("035E2C6E-3201-438E-94DC-D2F0DC26D937_FC4C79DE-B39F-473A-BA2E-9A8C3032A22C")),
-                        SecurityAlgorithms.HmacSha256
-                )
-            );
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim("Email", user.Email)
+                }),
+                Expires = DateTime.UtcNow.AddDays(30),
+                SigningCredentials = credentials
+            };
 
-            return new JwtSecurityTokenHandler().WriteToken(jwt);
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+  
+            return tokenHandler.WriteToken(token);
         }
 
         public async Task Register(RegistrationModel model)
         {
+            EnsureIsEditor();
+
             var user = new User
             {
                 Email = model.Email,
@@ -95,8 +114,7 @@ namespace EmployersRecord.Services
                 Name = model.Name,
                 PhoneNumber = model.PhoneNumber,
                 Position = model.Position,
-                HireDate = model.HireDate,
-                FireDate = model.FireDate
+                HireDate = DateTimeOffset.Now
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -111,7 +129,28 @@ namespace EmployersRecord.Services
             // await _userManager.AddClaimAsync(user, new Claim("UserId", user.Id.ToString()));
         }
 
+        public async Task EditUser(EditUserModel model) {
+            EnsureIsEditor();
+
+            var user = _db.Users.First(_ => _.Id == model.Id);
+
+            await _userManager.RemoveClaimAsync(user, new Claim("Email", user.Email));
+
+            user.Email = model.Email;
+            user.UserName = model.Email;
+            user.Name = model.Name;
+            user.PhoneNumber = model.PhoneNumber;
+            user.Position = model.Position;
+            user.HireDate = model.HireDate;
+            user.FireDate = model.FireDate;
+
+            await _userManager.AddClaimAsync(user, new Claim("Email", user.Email));
+
+            await _db.SaveChangesAsync();
+        }
+
         public IEnumerable<EmployerModel> GetEmployers() {
+            EnsureIsEditor();
             return _db.Users.Select((user) => new EmployerModel(user));
         }
     }

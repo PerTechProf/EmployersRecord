@@ -37,7 +37,6 @@ namespace EmployersRecord
             if (_env.IsDevelopment())
             {
                 services.AddCors();
-                services.AddSwaggerGen();
             }
 
             services.AddControllersWithViews();
@@ -116,9 +115,6 @@ namespace EmployersRecord
                             .AllowCredentials()
                             .AllowAnyMethod()
                             .AllowAnyHeader());
-
-                app.UseSwagger();
-                app.UseSwaggerUI();
             }
             else
             {

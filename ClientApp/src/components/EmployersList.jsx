@@ -1,7 +1,7 @@
 import React from "react";
 import { Table, Button } from "react-bootstrap";
 
-export const EmployersList = ({employers}) => {
+export const EmployersList = ({employers, onEmployerEdit}) => {
   return (
 // @ts-ignore
     <Table striped bordered hover size="sm">
@@ -24,10 +24,14 @@ export const EmployersList = ({employers}) => {
                   <td className="d-none d-md-table-cell">{employer.email}</td>
                   <td className="d-none d-sm-table-cell">{employer.position}</td>
                   <td className="d-none d-sm-table-cell">{employer.phoneNumber}</td>
-                  <td className="d-none d-md-table-cell">{employer.hireDate.toLocaleDateString()}</td>
-                  <td className="d-none d-md-table-cell">{employer.fireDate}</td>
+                  <td className="d-none d-md-table-cell">
+                    {new Date(employer.hireDate).toLocaleDateString()}
+                  </td>
+                  <td className="d-none d-md-table-cell">
+                    {employer.fireDate && new Date(employer.fireDate).toLocaleDateString()}
+                  </td>
                   <td>
-                      <Button className="mr-auto ml-auto" variant="outline-primary">Изменить</Button>
+                      <Button onClick={() => onEmployerEdit({...employer})} className="mr-auto ml-auto" variant="outline-primary">Изменить</Button>
                   </td>
                 </tr>
           )}

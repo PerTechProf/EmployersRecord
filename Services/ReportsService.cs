@@ -19,7 +19,7 @@ namespace EmployersRecord.Services
         }
 
         public IEnumerable<ReportModel> GetReports() {
-           // var user = _auth.GetCurrentUser();
+           _auth.EnsureIsEditor();
            return _db.Reports.Select(report => new ReportModel(report));
         }
     }

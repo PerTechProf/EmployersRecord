@@ -72,19 +72,25 @@ export const auth = {
     store.dispatch(setUser(null));
   },
 
-  createEmployer: function(name, position, email, password, 
-    phoneNumber, hireDate = new Date().toISOString(), id = null
-  ) {
-      return post(authController, "CreateEmployer", {
+  createEmployer: (name, position, email, password, phoneNumber) =>
+      post(authController, "CreateEmployer", {
         name,
         position,
         email,
         password,
+        phoneNumber
+      }, false),
+
+  editEmployer: (id, name, position, email, phoneNumber, hireDate, fireDate) =>
+      post(authController, "EditEmployer", {
+        id,
+        name,
+        position,
+        email,
         phoneNumber,
         hireDate,
-        id
-      })
-  },
+        fireDate: fireDate
+      }, false),
 
   getEmployers: () => 
     get(authController, "GetEmployers"),

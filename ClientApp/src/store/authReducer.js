@@ -5,7 +5,7 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState: {
     token: getCookies().AuthToken,
-    isEditor: getCookies().IsEditor == "True" ?? false
+    isEditor: getCookies().IsEditor == "True"
   },
   reducers: {
     setUser: (state, action) => {

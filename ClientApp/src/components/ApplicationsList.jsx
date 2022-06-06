@@ -37,7 +37,7 @@ export const ApplicationsList = ({applications}) => {
       <tbody>
         {applications.map((application, index) =>
                 <tr key={application.id}>
-                  <td>{index}</td>
+                  <td>{index+1}</td>
                   <td>{application.name}</td>
                   {isEditor && <td>{application.employer.name}</td>}
                   <td>{applicationTypes[application.type]}</td>

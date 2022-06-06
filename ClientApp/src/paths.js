@@ -23,7 +23,6 @@ const Paths = () => {
       <Route path="/" element={<About />}/>
       <Route path="about" element={<About />}/>
       {token ? <>
-        {console.log(token)}
         {isEditor && <Route path="employers" element={<Employers />}/>}
         <Route path="applications" element={<Applications />}/>
         <Route path="account-info" element={<UserInfo />}/>

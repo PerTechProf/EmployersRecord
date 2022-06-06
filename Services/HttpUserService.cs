@@ -15,6 +15,7 @@ namespace EmployersRecord.Services
     }
 
     public string CurrentHttpUserName =>
-      _httpContextAccessor.HttpContext?.User.Identity.Name ?? null;
+      ((ClaimsIdentity)_httpContextAccessor.HttpContext.User.Identity)
+        .Claims.FirstOrDefault(_ => _.Type == "Email")?.Value;
   }
 }

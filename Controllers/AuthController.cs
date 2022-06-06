@@ -27,8 +27,13 @@ namespace EmployersRecord.Controllers
     [HttpPost]
     public async Task CreateEmployer(RegistrationModel model)
     {
-      model.Id = null;
       await _auth.Register(model);
+    }
+
+    [HttpPost]
+    public async Task EditEmployer(EditUserModel model)
+    {
+      await _auth.EditUser(model);
     }
 
     [HttpGet]
@@ -43,14 +48,8 @@ namespace EmployersRecord.Controllers
 
     [HttpPost]
     public async Task<AuthModel> Login(LoginModel model) {
-      var token = await _auth.CreateToken(model.Email, model.Password);
-      
-      Entities.User user;
-      if (model.Email == "boss@boss.ru")
-        user = new Entities.User(){Id = 1002, IsEditor = true};
-      else
-        user = new Entities.User(){Id = 3003, IsEditor = false};
-      
+      var (token, user) = await _auth.GetUserWithNewToken(model.Email, model.Password);
+
       SetAuthCookie(Options.CookieName, token);
       SetAuthCookie("IsEditor", user.IsEditor.ToString());
 
