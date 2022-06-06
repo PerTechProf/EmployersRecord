@@ -49,7 +49,17 @@ namespace EmployersRecord.Services
         public void SetApplicationStatus(int applicationId, StatusType status) {
             _auth.EnsureIsEditor();
 
-            _db.Applications.First(_ => _.Id == applicationId).Status = status;
+            var application = _db.Applications.First(_ => _.Id == applicationId);
+            
+            application.Status = status;
+
+            var report = _db.Reports.FirstOrDefault(_ => _.ApplicationId == application.Id);
+
+            if (report == null && status == StatusType.Approved)
+                _db.Reports.Add(new Report(){ApplicationId = application.Id});
+            if (report != null && status != StatusType.Approved) {
+                _db.Remove(report);
+            }
 
             _db.SaveChanges();
         }

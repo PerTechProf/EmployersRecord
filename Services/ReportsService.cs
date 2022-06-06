@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using EmployersRecord.Interfaces;
 using EmployersRecord.Entities;
 using EmployersRecord.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployersRecord.Services
 {
@@ -19,8 +20,11 @@ namespace EmployersRecord.Services
         }
 
         public IEnumerable<ReportModel> GetReports() {
-           _auth.EnsureIsEditor();
-           return _db.Reports.Select(report => new ReportModel(report));
+            _auth.EnsureIsEditor();
+            return _db.Reports
+                .Include(_ => _.Application)
+                    .ThenInclude(_ => _.User)
+                .Select(report => new ReportModel(report));
         }
     }
 }
