@@ -38,5 +38,14 @@ namespace EmployersRecord.Controllers
             _applications.PostApplication(application);
         }
 
+        [HttpPost("{applicationId:int}")]
+        public void ApproveApplication(int applicationId) {
+            _applications.SetApplicationStatus(applicationId, StatusType.Approved);
+        }
+
+        [HttpPost("{applicationId:int}")]
+        public void RejectApplication(int applicationId) {
+            _applications.SetApplicationStatus(applicationId, StatusType.Rejected);
+        }
     }
 }

@@ -9,23 +9,23 @@ export const Applications = () => {
 
   const api = useApi();
 
-  const loadApplications = async () => setApplications(
+  const loadApplications = useCallback(async () => setApplications(
     (await api.applications.getApplications())
       .map(
         (application) => 
           ({...application, date: new Date(application.date)})
       )
-  );
+  ), [api]);
 
   useEffect(() => {
     loadApplications();
-  }, []);
+  }, [loadApplications]);
   
   return (
     <div style={{ width: "90%", margin: "0 auto", marginTop: "2%" }}>
-      <CreateApplicationForm/>
+      <CreateApplicationForm onAddition={loadApplications}/>
       <Container className='mt-5'>
-        <ApplicationsList applications={applications}/>
+        <ApplicationsList applications={applications} updateList={loadApplications}/>
       </Container>
     </div>
   )

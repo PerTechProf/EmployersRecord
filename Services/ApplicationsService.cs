@@ -42,7 +42,15 @@ namespace EmployersRecord.Services
                 Date = DateTimeOffset.Now,
                 Status = StatusType.New
             });
-            
+
+            _db.SaveChanges();
+        }
+
+        public void SetApplicationStatus(int applicationId, StatusType status) {
+            _auth.EnsureIsEditor();
+
+            _db.Applications.First(_ => _.Id == applicationId).Status = status;
+
             _db.SaveChanges();
         }
     }

@@ -46,7 +46,13 @@ export const applications = {
       name,
       type,
       content
-    })
+    }, false),
+  
+  approveApplication: (id) =>
+    post(applicationsController, `ApproveApplication/${id}`, null, false),
+  
+  rejectApplication: (id) =>
+    post(applicationsController, `RejectApplication/${id}`, null, false),
 }
 
 export const reports = {
